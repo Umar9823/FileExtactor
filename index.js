@@ -56,6 +56,11 @@ app.post('/upload', upload.single('zipFile'), (req, res) => {
     }
 });
 
+// Render the HTML page on server start
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
