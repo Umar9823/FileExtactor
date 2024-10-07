@@ -6,141 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZIP File Extractor</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+       * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f9fc;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
-        }
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+}
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #4A90E2;
-            /* Blue color for the heading */
-        }
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #4A90E2; /* Blue color for the heading */
+}
 
-        form {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-        }
+form {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+}
 
-        input[type="file"] {
-            margin: 20px 0;
-            padding: 10px;
-            border: 2px solid #4A90E2;
-            /* Blue border for input */
-            border-radius: 5px;
-            width: 100%;
-            font-size: 16px;
-        }
+input[type="file"] {
+    margin: 20px 0;
+    padding: 10px;
+    border: 2px solid #4A90E2; /* Blue border for input */
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+}
 
-        input[type="file"]:focus {
-            border-color: #007BFF;
-            /* Change border color on focus */
-            outline: none;
-        }
+input[type="file"]:focus {
+    border-color: #007BFF; /* Change border color on focus */
+    outline: none;
+}
 
-        button {
-            background-color: #4A90E2;
-            /* Blue background for button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            /* Full width button */
-        }
+button {
+    background-color: #4A90E2; /* Blue background for button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Full width button */
+}
 
-        button:hover {
-            background-color: #007BFF;
-            /* Darker blue on hover */
-        }
+button:hover {
+    background-color: #007BFF; /* Darker blue on hover */
+}
 
-        #response {
-            margin-top: 20px;
-            font-size: 1.2rem;
-        }
+#response {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
 
-        .alert {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            display: none;
-            /* Hidden by default */
-        }
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+}
 
-        .alert.success {
-            background-color: #d4edda;
-            /* Green background for success */
-            color: #155724;
-            /* Dark green text */
-            border: 1px solid #c3e6cb;
-            /* Green border */
-        }
+.alert.success {
+    background-color: #d4edda; /* Green background for success */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb; /* Green border */
+}
 
-        .alert.error {
-            background-color: #f8d7da;
-            /* Red background for error */
-            color: #721c24;
-            /* Dark red text */
-            border: 1px solid #f5c6cb;
-            /* Red border */
-        }
+.alert.error {
+    background-color: #f8d7da; /* Red background for error */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb; /* Red border */
+}
 
-        .loader {
-            border: 4px solid #f3f3f3;
-            /* Light grey */
-            border-top: 4px solid #3498db;
-            /* Blue */
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            display: none;
-            /* Hidden by default */
-            margin: 20px auto;
-            /* Center the loader */
-        }
+.loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    display: none; /* Hidden by default */
+    margin: 20px auto; /* Center the loader */
+}
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            button {
-                font-size: 14px;
-            }
-        }
+    button {
+        font-size: 14px;
+    }
+}
     </style>
 </head>
 
@@ -180,11 +158,6 @@
             if (response.ok) {
                 responseDiv.classList.add('success');
                 responseDiv.classList.remove('error');
-
-                // Reload the page after a success message
-                setTimeout(() => {
-                    location.reload();
-                }, 2000); // Wait for 2 seconds before reloading
             } else {
                 responseDiv.classList.add('error');
                 responseDiv.classList.remove('success');
